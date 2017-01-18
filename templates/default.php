@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo (isset($css_url))? $css_url.'bootstrap.min.css': '';?>">
+	<title>Siaga Stempat</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -46,9 +46,9 @@
   </div>
 </div>
 
-<script type="text/javascript" src="<?php echo (isset($js_url))? $js_url.'jquery-3.1.1.js': '';?>"></script>
-<script type="text/javascript" src="<?php echo (isset($js_url))? $js_url.'tether.min.js': '';?>"></script>
-<script type="text/javascript" src="<?php echo (isset($js_url))? $js_url.'bootstrap.min.js': '';?>"></script>
+<script type="text/javascript" src="assets/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="assets/js/tether.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	
 </script>

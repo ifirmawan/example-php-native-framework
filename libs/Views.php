@@ -9,8 +9,7 @@ class Views{
 	public $data = array();
 	private $menu = array('Beranda'=>'?pg=home','Masuk'=>'?pg=login');
 	function __construct(){
-		$this->data['css_url'] 	= base_url.'assets/css/';
-		$this->data['js_url'] 	= base_url.'assets/js/';
+		
 	}
 	public function set_template($tpl){
 		$this->template = 'templates/'.$tpl.'.php';

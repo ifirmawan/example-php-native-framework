@@ -1,6 +1,4 @@
 <?php
-define('base_url','http://'.$_SERVER['HTTP_HOST'].'/'.basename(__DIR__).'/');
-
 require 'system/Core.php';
 $core = New Core();
 $core->run();
