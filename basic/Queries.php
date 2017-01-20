@@ -4,10 +4,10 @@ require 'Connection.php';
 Class Queries extends Connection{
 	
 	protected $table_name;
-	private $syntax;
+	public $syntax;
 	private $fields;
 	public function __construct($name){
-		parent::__construct('root','jvmdev-123','rpl_siapmas');
+		parent::__construct();
 		$this->set_table($name);
 		$this->set_fields();
 	}
@@ -84,8 +84,8 @@ Class Queries extends Connection{
 
 	}
 
-	public function verify($table=false,$user=false,$pass=false){
-		$stmt = $this->conn->prepare(" SELECT * FROM {$table} WHERE user_name = ? AND user_pass = ? ");
+	public function verify($user=false,$pass=false){
+		$stmt = $this->conn->prepare(" SELECT * FROM {$this->table_name} WHERE user_name = ? AND user_pass = ? ");
 		$stmt->bind_param('ss',$user,$pass);
 		$stmt->execute();
 		$result = $stmt->get_result();

@@ -1,7 +1,6 @@
 <?php
-	require 'system/Core.php';
-	$core = New Core();
-	$core->run();
+	require 'basic/loader.php';
+	$session = new Session();
 	if ($session->isRegistered()) {
 		$session->end();
 		header('location: index.php');

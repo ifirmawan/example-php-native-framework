@@ -3,6 +3,8 @@
 <head>
 	<title>Siaga Stempat</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/datepicker3.css" />
+  
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -15,7 +17,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php">SiapMas</a>
+      <a class="navbar-brand" href="index.php"><?php echo (isset($title))? ucwords($title) : 'Untitled';?></a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -49,6 +51,8 @@
 <script type="text/javascript" src="assets/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="assets/js/tether.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap-datepicker.id.js"></script>
 <script type="text/javascript">
 	
 </script>

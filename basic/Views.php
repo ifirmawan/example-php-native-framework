@@ -1,18 +1,19 @@
 <?php
-
-
 /**
 * 
 */
+
 class Views{
-	private $template;
-	public $data = array();
-	private $menu = array('Beranda'=>'?pg=home','Masuk'=>'?pg=login');
+	private 	$template;
+	public 		$data = array();
+	private 	$menu = array('Beranda'=>'home','Masuk'=>'login');
+	protected 	$glob;
+
 	function __construct(){
-		
+		$this->glob =& $GLOBALS;
 	}
 	public function set_template($tpl){
-		$this->template = 'templates/'.$tpl.'.php';
+		$this->template = templates_path.$tpl.'.php';
 	}
 	private function get_template()
 	{
@@ -20,7 +21,7 @@ class Views{
 	}
 	
 	public function set_content($file_name=''){
-		$file_path = getcwd().'/pages/'.$file_name.'.php'; 
+		$file_path = pages_path.$file_name.'.php'; 
 		if (file_exists($file_path)) {
 			extract($this->data);
 			include $file_path;
@@ -44,7 +45,8 @@ class Views{
 	}
 
 	public function render(){
-		$this->data['menu'] = $this->menu;
+		$this->data['title'] 	= $this->glob['title'];
+		$this->data['menu'] 	= $this->menu;
 		extract($this->data);
 		ob_start();
 		require($this->get_template());
