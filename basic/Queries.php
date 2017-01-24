@@ -24,13 +24,13 @@ Class Queries extends Connection{
 		}
 		$this->fields = $columns;
 	}
-	private function set_syntax($sql){
+	public function set_syntax($sql){
 		$this->syntax = $sql;
 	}
-	private function get_syntax(){
+	public function get_syntax(){
 		return $this->syntax;
 	}
-	private function execute()
+	public function execute()
 	{
 		if (!is_null($this->get_syntax())) {
 			try {
@@ -40,7 +40,7 @@ Class Queries extends Connection{
 			}
 		}
 	}
-	private function success_execute(){
+	public function success_execute(){
 		$result = $this->execute();
 		if (isset($result->num_rows) && $result->num_rows > 0) {
 			return true;
@@ -85,11 +85,11 @@ Class Queries extends Connection{
 	}
 
 	public function verify($user=false,$pass=false){
-		$stmt = $this->conn->prepare(" SELECT * FROM {$this->table_name} WHERE user_name = ? AND user_pass = ? ");
+		$stmt = $this->conn->prepare(" SELECT * FROM {$this->table_name} WHERE user_email = ? AND user_pass = ? ");
 		$stmt->bind_param('ss',$user,$pass);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		return ($result->num_rows > 0)? true : false;
+		return ($result->num_rows > 0)? $result->fetch_assoc() : false;
 	}
 
 	public function insert($data=array())
@@ -116,8 +116,14 @@ Class Queries extends Connection{
 			$sql ="INSERT INTO {$this->table_name}".$column.' VALUES('.$val.')';
 		}
 		$this->set_syntax($sql);
-		return $this->execute();
+		return $this->success_execute();
 	}
 
+	public function get_enum_values($field){
+    	$type = $this->conn->query( "SHOW COLUMNS FROM {$this->table_name} WHERE Field = '{$field}'" )->fetch_assoc();
+    	preg_match("/^enum\(\'(.*)\'\)$/", $type['Type'], $matches);
+    	$enum = explode("','", $matches[1]);
+    	return $enum;
+	}
 
 }

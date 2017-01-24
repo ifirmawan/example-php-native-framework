@@ -30,9 +30,11 @@
           }
         }?>
       </ul>
-      <?php if(isset($user)): ?>
+      <?php 
+      
+      if(isset($user['user_email'])): ?>
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><?php echo $user['user_name'];?></a></li>
+        <li><a href="#"><?php echo $user['user_email'];?></a></li>
         <form class="navbar-form navbar-right">
         <a href="logout.php" type="submit" class="btn btn-default">Logout</a>
       </form>
@@ -43,9 +45,9 @@
 </nav>
 <?php echo (isset($notif))? $notif : '';?>
 <div class="container">
-  <div class="row">
+  
       <?php echo (isset($content))? $content : 'no content laoded';?>
-  </div>
+  
 </div>
 
 <script type="text/javascript" src="assets/js/jquery-3.1.1.js"></script>
@@ -54,7 +56,40 @@
 <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap-datepicker.id.js"></script>
 <script type="text/javascript">
-	
+	$(document).ready(function () {
+        $(document).on('click','a.btn-confirm',function(){
+            if (confirm('Anda sudah yakin? layanan diterima dengan baik')) {
+                $.ajax({
+                    url: 'proses.php',
+                    data: {'id' : $(this).attr('id'),'hapus_saran':'1' },
+                    type:"POST",
+                    success: function(data){      
+                        console.log(data);
+                        //window.history.back();
+                        window.location.href="pesan";
+                    }
+                });
+            }
+        });
+
+
+  $(document).on('change','select[name="status_tanggapan"]',function(){
+      var id    = $(this).attr('id');      
+      var kirim = {
+        'id': $('.saran-'+id).val()
+        ,'status_tanggapan' : $('.tgp-'+id).val()
+        ,'tanggapi':'1'
+      };
+        $.ajax({
+          url: 'proses.php',
+          data: kirim,
+          type:"POST",
+          success: function(data){
+              window.location.href="kasus";             
+          }
+        });
+  });
+});
 </script>
 </body>
 </html>

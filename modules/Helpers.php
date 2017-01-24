@@ -22,5 +22,4 @@ function method_dari($kelas=''){
 	return $semua;
 }
 
-
 ?>

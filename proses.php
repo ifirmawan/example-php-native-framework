@@ -1,4 +1,5 @@
 <?php
+define('base_path', $_SERVER['DOCUMENT_ROOT'].'/'.basename(__DIR__).'/');
 require 'basic/loader.php';
 
 /**
@@ -41,10 +42,16 @@ class Process extends Loader
             if (isset($data['user_pass'])) {
                 $data['user_pass'] = sha1($data['user_pass']);
             }
-            if ($this->sql->mahasiswa->verify($data['user_name'],$data['user_pass'])) {
+            if ($user = $this->sql->kontributor->verify($data['user_email'],$data['user_pass'])) {
+                $user['role']  ='kontributor';
                 $this->session->register(120); // Register for 2 hours.
-                $this->session->set('current_user', $data);
-                header('location: index.php');
+                $this->session->set('current_user', $user);
+                header('location: kontributor');
+            }else if ($admin=$this->sql->admin->verify($data['user_email'],$data['user_pass'])) {
+                $admin['role']  ='admin';
+                $this->session->register(120); // Register for 2 hours.
+                $this->session->set('current_user', $admin);
+                header('location: admin');
             }else{        
                 $this->notif->error('Username atau password salah');
                 $this->page->data['notif'] = $this->notif->display(null,false);                
@@ -53,7 +60,9 @@ class Process extends Loader
         }
     }
 
+
 }
+
 
 if (isset($_POST)) {
     $method_list    =  method_dari('Process');
@@ -62,7 +71,7 @@ if (isset($_POST)) {
         
         if (isset($_POST[$action[$key]])) {
             unset($_POST[$action[$key]]);
-            $required   = array('user_pass','user_name');
+            $required   = array('user_pass','user_email');
             $handler    = new Process();
             if ($handler->set_data($_POST,$required)) {
                 //header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -75,4 +84,6 @@ if (isset($_POST)) {
         
     }
 }
+
+
 ?>

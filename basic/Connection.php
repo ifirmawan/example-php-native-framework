@@ -20,7 +20,7 @@ Class Connection{
 		 if ($query && $query->num_rows > 0) {
 
 		 	while ($row = $query->fetch_assoc()) {
-		 		$send[] = $row['Tables_in_rpl_siapmas'];
+		 		$send[] = $row['Tables_in_'.$this->glob['db_name']];
 		 	}
 		 }
 		 $this->table_list = $send;

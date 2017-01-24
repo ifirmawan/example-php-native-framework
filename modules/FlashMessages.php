@@ -74,7 +74,8 @@ class FlashMessages {
         // Create session array to hold our messages if it doesn't already exist
         $_SESSION = array();
         if (isset($_SESSION)) {
-            if (!array_key_exists('flash_messages', $_SESSION)) $_SESSION['flash_messages'] = [];
+            (!array_key_exists('flash_messages', $_SESSION))? $_SESSION['flash_messages'] = [] : $_SESSION=[]; 
+;
         }
 
     }
@@ -168,7 +169,7 @@ class FlashMessages {
         if (!array_key_exists($type, $this->msgTypes)) $type = $this->defaultType;
         
         // Add the message to the session data
-        if (is_array($_SESSION['flash_messages'])) {
+        if (isset($_SESSION['flash_messages']) && is_array($_SESSION['flash_messages'])) {
             if (!array_key_exists( $type, $_SESSION['flash_messages'] )) $_SESSION['flash_messages'][$type] = array();
         }
 

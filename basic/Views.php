@@ -6,7 +6,7 @@
 class Views{
 	private 	$template;
 	public 		$data = array();
-	private 	$menu = array('Beranda'=>'home','Masuk'=>'login');
+	private 	$menu = array('Beranda'=>'home','explore'=>'acara');
 	protected 	$glob;
 
 	function __construct(){

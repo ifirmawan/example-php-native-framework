@@ -1,7 +1,7 @@
 <form action="proses.php" method="post">
 	<div class="form-group">
-		<label>username</label>
-		<input type="text" name="user_name" class="form-control" />
+		<label>Email</label>
+		<input type="email" name="user_email" class="form-control" />
 	</div>
 	<div class="form-group">
 		<label>password</label>
